@@ -21,21 +21,20 @@ The MIT License (MIT)
 #### Getting Started
 
 ```ts
+import { api, IApiGroup, koaApi } from '@tdqs/koa-api';
 import * as Koa from 'koa';
-import { koaApi, IApiGroup } from '@tdqs/koa-api';
 
 const app = new Koa();
 
-export class Test implements IApiGroup {
+class Test implements IApiGroup {
   public static group;
   @api()
   public static hello(ctx) {
     return 'hello world';
   }
+}
 
-app
-  .use(koaApi(), Test))
-  .listen(8080);
+app.use(koaApi({}, Test)).listen(8080);
 
 //GET localhost:8080/docs       Api document
 //GET localhost:8080/hello      Response 'hello world'
