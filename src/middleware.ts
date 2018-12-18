@@ -11,9 +11,7 @@ import * as compose from 'koa-compose';
 import * as path from 'path';
 import { apiUrls, IApiContext } from './api';
 import { getDocs } from './docs';
-import { staticMiddleware } from './static';
-
-const staticPath = path.resolve(__dirname, '../static');
+import { staticUrl } from './static';
 
 class ValidationError extends Error {
   constructor(
@@ -25,7 +23,10 @@ class ValidationError extends Error {
 }
 
 interface IKoaApiOptions {
+  /** 文档地址 */
   docsUrl?: string;
+  /** 文档模板静态路径(绝对路径) */
+  staticPath?: string;
   koaBody?: koaBody.IKoaBodyOptions;
 }
 
@@ -38,7 +39,10 @@ const ajv = new Ajv();
  */
 export function koaApi(opt: IKoaApiOptions, ...groups: any[]) {
   /** IApiOption默认值 */
-  const option = Object.assign({ docsUrl: '/docs' }, opt);
+  const option: IKoaApiOptions = Object.assign(
+    { docsUrl: '/docs', staticPath: path.resolve(__dirname, '../static') },
+    opt,
+  );
   const mwKoaBody = koaBody(option.koaBody);
   const middleware = async (ctx: IApiContext, next: () => Promise<void>) => {
     const urls = apiUrls[ctx.method][ctx.path];
@@ -62,10 +66,13 @@ export function koaApi(opt: IKoaApiOptions, ...groups: any[]) {
     }
     await next();
   };
-  const mwStatic = staticMiddleware(staticPath);
   return async (ctx: IApiContext, next: () => Promise<void>) => {
     if (ctx.path.startsWith(option.docsUrl)) {
-      return compose([mwStatic])(ctx, next);
+      if (ctx.method === 'GET') {
+        await staticUrl(ctx, option.docsUrl, option.staticPath);
+      } else {
+        ctx.body = getDocs();
+      }
     } else if (ctx.path in apiUrls[ctx.method]) {
       const urls = apiUrls[ctx.method][ctx.path];
       const middlewares = [mwKoaBody];
