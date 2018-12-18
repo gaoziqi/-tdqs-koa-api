@@ -5,8 +5,7 @@
  * @Last Modified time: 2018-12-17 13:37:59
  */
 
-import * as send from 'koa-send';
-import { api, cls } from '../src/index';
+import { api, cls, koaSend } from '../src/index';
 
 @cls()
 export class Test {
@@ -25,6 +24,6 @@ export class Test {
   public static async download(ctx) {
     const path = ctx.query.name;
     ctx.attachment(path);
-    await send(ctx, path);
+    await koaSend(ctx, path);
   }
 }

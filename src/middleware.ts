@@ -8,8 +8,12 @@
 import * as Ajv from 'ajv';
 import * as koaBody from 'koa-body';
 import * as compose from 'koa-compose';
+import * as path from 'path';
 import { apiUrls, IApiContext } from './api';
 import { getDocs } from './docs';
+import { staticMiddleware } from './static';
+
+const staticPath = path.resolve(__dirname, '../static');
 
 class ValidationError extends Error {
   constructor(
@@ -58,8 +62,11 @@ export function koaApi(opt: IKoaApiOptions, ...groups: any[]) {
     }
     await next();
   };
+  const mwStatic = staticMiddleware(staticPath);
   return async (ctx: IApiContext, next: () => Promise<void>) => {
-    if (ctx.path in apiUrls[ctx.method]) {
+    if (ctx.path.startsWith(option.docsUrl)) {
+      return compose([mwStatic])(ctx, next);
+    } else if (ctx.path in apiUrls[ctx.method]) {
       const urls = apiUrls[ctx.method][ctx.path];
       const middlewares = [mwKoaBody];
       for (const mw in urls.option.middlewares) {
@@ -67,8 +74,6 @@ export function koaApi(opt: IKoaApiOptions, ...groups: any[]) {
       }
       middlewares.push(middleware);
       return compose(middlewares)(ctx, next);
-    } else if (ctx.path === option.docsUrl) {
-      ctx.body = getDocs();
     } else {
       await next();
     }

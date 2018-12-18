@@ -5,5 +5,9 @@
  * @Last Modified time: 2018-12-17 15:12:09
  */
 
-export { api, cls, IApiContext  } from './api';
+import * as koaBody from 'koa-body';
+import * as koaSend from 'koa-send';
+
+export { koaSend, koaBody };
+export { api, cls, IApiContext } from './api';
 export { koaApi } from './middleware';
