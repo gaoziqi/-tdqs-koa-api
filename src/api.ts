@@ -42,12 +42,10 @@ export interface IApiOption {
 }
 
 /** 默认prefix '' */
-export interface IApiGroup {
-  group?: {
-    /** 名称， 默认值默认分组 */
-    name?: string;
-    prefix: string;
-  };
+interface IApiGroup {
+  /** 名称， 默认值默认分组 */
+  name?: string;
+  prefix: string;
 }
 
 interface IApiUrl {
@@ -71,16 +69,7 @@ export const apiGroups: {
 } = {};
 
 export function api(option?: IApiOption) {
-  return (
-    target: IApiGroup,
-    methodName: string,
-    descriptor: PropertyDescriptor,
-  ) => {
-    /** IApiGroup默认值 */
-    const group: IApiGroup['group'] = Object.assign(
-      { name: '默认分组', prefix: '' },
-      target.group,
-    );
+  return (target: any, methodName: string, descriptor: PropertyDescriptor) => {
     /** IApiOption默认值 */
     const opt: IApiOption = Object.assign(
       {
@@ -90,25 +79,36 @@ export function api(option?: IApiOption) {
       },
       option,
     );
-    opt.path = `/${group.prefix}/${opt.path}`.replace(/\/+/g, '/');
-    console.log(opt.path);
-
-    if (opt.method in apiUrls) {
-      if (opt.path in apiUrls[opt.method]) {
-        throw Error(`${opt.method} ${opt.path} 地址重复定义`);
-      }
+    const url: IApiUrl = { option: opt, func: descriptor.value };
+    if (target.$Meta === undefined) {
+      target.$Meta = [url];
     } else {
-      throw Error(`${opt.path} ${opt.method} http方法不存在`);
+      target.$Meta.push(url);
     }
-
-    apiUrls[opt.method][opt.path] = {
-      func: descriptor.value,
-      option: opt,
-    };
-
-    apiGroups[group.name] = apiGroups[group.name]
-      ? apiGroups[group.name].concat({ name: opt.name, value: opt })
-      : [{ name: opt.name, value: opt }];
     return descriptor;
+  };
+}
+
+export function cls(group?: IApiGroup) {
+  return (target: any) => {
+    /** IApiGroup默认值 */
+    group = Object.assign({ name: '默认分组', prefix: '' }, group);
+    for (const url of target.$Meta as IApiUrl[]) {
+      const opt = url.option;
+      opt.path = `/${group.prefix}/${opt.path}`.replace(/\/+/g, '/');
+
+      if (opt.method in apiUrls) {
+        if (opt.path in apiUrls[opt.method]) {
+          throw Error(`${opt.method} ${opt.path} 地址重复定义`);
+        }
+      } else {
+        throw Error(`${opt.path} ${opt.method} http方法不存在`);
+      }
+
+      apiUrls[opt.method][opt.path] = url;
+      apiGroups[group.name] = apiGroups[group.name]
+        ? apiGroups[group.name].concat({ name: opt.name, value: opt })
+        : [{ name: opt.name, value: opt }];
+    }
   };
 }

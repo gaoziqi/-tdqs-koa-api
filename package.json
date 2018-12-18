@@ -1,6 +1,6 @@
 {
   "name": "@tdqs/koa-api",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "基于koa的api中间件",
   "main": "dist/index.js",
   "scripts": {

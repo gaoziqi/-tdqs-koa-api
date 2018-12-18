@@ -5,5 +5,5 @@
  * @Last Modified time: 2018-12-17 15:12:09
  */
 
-export { api, IApiContext, IApiGroup } from './api';
+export { api, cls, IApiContext  } from './api';
 export { koaApi } from './middleware';

@@ -6,10 +6,9 @@
  */
 
 import * as Ajv from 'ajv';
-import { Middleware } from 'koa';
 import * as koaBody from 'koa-body';
 import * as compose from 'koa-compose';
-import { apiUrls, IApiContext, IApiGroup } from './api';
+import { apiUrls, IApiContext } from './api';
 import { getDocs } from './docs';
 
 class ValidationError extends Error {
@@ -33,7 +32,7 @@ const ajv = new Ajv();
  * @param opt 配置
  * @param groups 添加需要编译的IApiGroup
  */
-export function koaApi(opt: IKoaApiOptions, ...groups: IApiGroup[]) {
+export function koaApi(opt: IKoaApiOptions, ...groups: any[]) {
   /** IApiOption默认值 */
   const option = Object.assign({ docsUrl: '/docs' }, opt);
   const mwKoaBody = koaBody(option.koaBody);

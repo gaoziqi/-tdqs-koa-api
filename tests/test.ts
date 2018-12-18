@@ -6,14 +6,10 @@
  */
 
 import * as send from 'koa-send';
-import { api, IApiGroup } from '../src/index';
+import { api, cls } from '../src/index';
 
-export class Test implements IApiGroup {
-  /*public static group = {
-    name: '测试',
-    prefix: '/test',
-  };*/
-  public static group;
+@cls()
+export class Test {
   @api()
   public static hello(ctx) {
     return 'hello world';

@@ -5,13 +5,13 @@
  * @Last Modified time: 2018-12-17 16:22:33
  */
 
-import { api, IApiContext, IApiGroup } from '../src/index';
+import { api, cls, IApiContext } from '../src/index';
 
-export class Schema implements IApiGroup {
-  public static group = {
-    name: '测试schema',
-    prefix: '/schema',
-  };
+@cls({
+  name: '测试schema',
+  prefix: '/schema',
+})
+export class Schema {
   @api({
     method: 'POST',
     middlewares: [

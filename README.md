@@ -21,13 +21,13 @@ The MIT License (MIT)
 #### Getting Started
 
 ```ts
-import { api, IApiGroup, koaApi } from '@tdqs/koa-api';
+import { api, cls, koaApi } from '@tdqs/koa-api';
 import * as Koa from 'koa';
 
 const app = new Koa();
 
-class Test implements IApiGroup {
-  public static group;
+@cls()
+class Test {
   @api()
   public static hello(ctx) {
     return 'hello world';
@@ -43,13 +43,13 @@ app.use(koaApi({}, Test)).listen(8080);
 #### jsonschema & middlewares simplification
 
 ```ts
-import { api, IApiContext, IApiGroup } from '@tdqs/koa-api';
+import { api, cls, IApiContext } from '../src/index';
 
-export class Schema implements IApiGroup {
-  public static group = {
-    name: '测试schema',
-    prefix: '/schema',
-  };
+@cls({
+  name: '测试schema',
+  prefix: '/schema',
+})
+export class Schema {
   @api({
     method: 'POST',
     middlewares: [
