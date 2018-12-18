@@ -237,13 +237,15 @@ packages:
     resolution:
       integrity: sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=
       tarball: 'http://registry.npm.taobao.org/co/download/co-4.6.0.tgz'
-  /content-disposition/0.5.2:
+  /content-disposition/0.5.3:
+    dependencies:
+      safe-buffer: 5.1.2
     dev: true
     engines:
       node: '>= 0.6'
     resolution:
-      integrity: sha1-DPaLud318r55YcOoUXjLhdunjLQ=
-      tarball: 'http://registry.npm.taobao.org/content-disposition/download/content-disposition-0.5.2.tgz'
+      integrity: sha1-4TDK9+cnkIfFYWwgB9BIVpiYT70=
+      tarball: 'http://registry.npm.taobao.org/content-disposition/download/content-disposition-0.5.3.tgz'
   /content-type/1.0.4:
     dev: true
     engines:
@@ -497,7 +499,7 @@ packages:
     dependencies:
       accepts: 1.3.5
       cache-content-type: 1.0.1
-      content-disposition: 0.5.2
+      content-disposition: 0.5.3
       content-type: 1.0.4
       cookies: 0.7.3
       debug: 3.1.0
@@ -670,6 +672,11 @@ packages:
     resolution:
       integrity: sha1-xL2p9e+y/OZSR4c6s2u02DT+Fvc=
       tarball: 'http://registry.npm.taobao.org/resolve-path/download/resolve-path-1.4.0.tgz'
+  /safe-buffer/5.1.2:
+    dev: true
+    resolution:
+      integrity: sha1-mR7GnSluAxN0fVm9/St0XDX4go0=
+      tarball: 'http://registry.npm.taobao.org/safe-buffer/download/safe-buffer-5.1.2.tgz'
   /safer-buffer/2.1.2:
     dev: false
     resolution:
