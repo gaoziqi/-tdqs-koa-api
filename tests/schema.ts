@@ -2,10 +2,10 @@
  * @Author: gzq
  * @Date: 2018-12-17 11:02:09
  * @Last Modified by: gzq
- * @Last Modified time: 2018-12-17 16:22:33
+ * @Last Modified time: 2018-12-19 10:32:00
  */
 
-import { api, cls, IApiContext } from '../src/index';
+import { api, cls, IApiContext, koaSend } from '../src/index';
 
 @cls({
   name: '测试schema',
@@ -13,6 +13,7 @@ import { api, cls, IApiContext } from '../src/index';
 })
 export class Schema {
   @api({
+    desc: 'schema测试接口',
     method: 'POST',
     middlewares: [
       async (ctx, next) => {
@@ -25,6 +26,7 @@ export class Schema {
         };
       },
     ],
+    return: 'hello world {"p": "1", "q": 2}',
     schema: {
       properties: {
         p: { type: 'string' },
@@ -36,5 +38,20 @@ export class Schema {
   })
   public static hello(ctx: IApiContext) {
     return `hello world ${JSON.stringify(ctx.data)}`;
+  }
+
+  @api({
+    schema: {
+      properties: {
+        name: { type: 'string' },
+      },
+      required: ['name'],
+      type: 'object',
+    },
+  })
+  public static async download(ctx) {
+    const path = ctx.query.name;
+    ctx.attachment(path);
+    await koaSend(ctx, path);
   }
 }
