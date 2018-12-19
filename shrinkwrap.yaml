@@ -1,21 +1,29 @@
 dependencies:
+  '@tdqs/koa-static': 0.0.2
   ajv: 6.6.2
   koa-body: 4.0.4
   koa-compose: 4.1.0
+  koa-send: 5.0.0
 devDependencies:
   '@types/koa': 2.0.47
   '@types/koa-compose': 3.2.2
   '@types/koa-send': 4.1.1
-  '@types/node': 10.12.15
+  '@types/node': 10.12.17
   koa: 2.6.2
   koa-logger: 3.2.0
-  koa-send: 5.0.0
   ts-node: 7.0.1
   typescript: 3.2.2
 packages:
+  /@tdqs/koa-static/0.0.2:
+    dependencies:
+      koa-send: 5.0.0
+    dev: false
+    resolution:
+      integrity: sha1-s5O+4Eb/lic4Kh0qtnpl5iOC3rc=
+      tarball: 'http://registry.npm.taobao.org/@tdqs/koa-static/download/@tdqs/koa-static-0.0.2.tgz'
   /@types/accepts/1.3.5:
     dependencies:
-      '@types/node': 10.12.15
+      '@types/node': 10.12.17
     dev: true
     resolution:
       integrity: sha1-w0vsEVz8dG4E/loFnfTOfns5FXU=
@@ -23,14 +31,14 @@ packages:
   /@types/body-parser/1.17.0:
     dependencies:
       '@types/connect': 3.4.32
-      '@types/node': 10.12.15
+      '@types/node': 10.12.17
     dev: true
     resolution:
       integrity: sha1-n1ydm9BLtUvjLV65/A2Ml05s9Yw=
       tarball: 'http://registry.npm.taobao.org/@types/body-parser/download/@types/body-parser-1.17.0.tgz'
   /@types/connect/3.4.32:
     dependencies:
-      '@types/node': 10.12.15
+      '@types/node': 10.12.17
     dev: true
     resolution:
       integrity: sha1-qg6WFrlDXMrQK8UrW0VP/Cxwuig=
@@ -40,7 +48,7 @@ packages:
       '@types/connect': 3.4.32
       '@types/express': 4.16.0
       '@types/keygrip': 1.0.1
-      '@types/node': 10.12.15
+      '@types/node': 10.12.17
     dev: true
     resolution:
       integrity: sha1-+fIEvWdn04nuo7h2CeMMCQx3pUA=
@@ -52,7 +60,7 @@ packages:
   /@types/express-serve-static-core/4.16.0:
     dependencies:
       '@types/events': 1.2.0
-      '@types/node': 10.12.15
+      '@types/node': 10.12.17
       '@types/range-parser': 1.2.3
     dev: true
     resolution:
@@ -70,7 +78,7 @@ packages:
   /@types/formidable/1.0.31:
     dependencies:
       '@types/events': 1.2.0
-      '@types/node': 10.12.15
+      '@types/node': 10.12.17
     dev: false
     resolution:
       integrity: sha1-J0+dwtChqc4f7vSMJMoIWefslHs=
@@ -104,7 +112,7 @@ packages:
       '@types/http-assert': 1.3.0
       '@types/keygrip': 1.0.1
       '@types/koa-compose': 3.2.2
-      '@types/node': 10.12.15
+      '@types/node': 10.12.17
     dev: true
     resolution:
       integrity: sha1-rHhUOEpMxJwWWTyGrNmeY2pIFCo=
@@ -114,10 +122,10 @@ packages:
     resolution:
       integrity: sha1-WnMG42fFObn2VDSZ3o3VGfrDeos=
       tarball: 'http://registry.npm.taobao.org/@types/mime/download/@types/mime-2.0.0.tgz'
-  /@types/node/10.12.15:
+  /@types/node/10.12.17:
     resolution:
-      integrity: sha1-IOhWUbYv2GZW5Xycm8dxqxVwvFk=
-      tarball: 'http://registry.npm.taobao.org/@types/node/download/@types/node-10.12.15.tgz'
+      integrity: sha1-cEBWWyyT1ZMlpo+mkHPnVKftqTo=
+      tarball: 'http://registry.npm.taobao.org/@types/node/download/@types/node-10.12.17.tgz'
   /@types/range-parser/1.2.3:
     dev: true
     resolution:
@@ -166,7 +174,6 @@ packages:
       integrity: sha1-tDLdM1i2NM914eRmQ2gkBTPB3b4=
       tarball: 'http://registry.npm.taobao.org/ansi-styles/download/ansi-styles-2.2.1.tgz'
   /any-promise/1.3.0:
-    dev: true
     resolution:
       integrity: sha1-q8av7tzqUugJzcA3au0845Y10X8=
       tarball: 'http://registry.npm.taobao.org/any-promise/download/any-promise-1.3.0.tgz'
@@ -273,7 +280,7 @@ packages:
   /debug/3.2.6:
     dependencies:
       ms: 2.1.1
-    dev: true
+    dev: false
     resolution:
       integrity: sha1-6D0X3hbYp++3cX7b5fsQE17uYps=
       tarball: 'http://registry.npm.taobao.org/debug/download/debug-3.2.6.tgz'
@@ -374,6 +381,7 @@ packages:
       inherits: 2.0.3
       setprototypeof: 1.1.0
       statuses: 1.5.0
+    dev: false
     engines:
       node: '>= 0.6'
     resolution:
@@ -386,7 +394,6 @@ packages:
       setprototypeof: 1.1.0
       statuses: 1.5.0
       toidentifier: 1.0.0
-    dev: true
     engines:
       node: '>= 0.6'
     resolution:
@@ -489,7 +496,7 @@ packages:
       http-errors: 1.7.1
       mz: 2.7.0
       resolve-path: 1.4.0
-    dev: true
+    dev: false
     engines:
       node: '>= 7.6.0'
     resolution:
@@ -576,7 +583,7 @@ packages:
       integrity: sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
       tarball: 'http://registry.npm.taobao.org/ms/download/ms-2.0.0.tgz'
   /ms/2.1.1:
-    dev: true
+    dev: false
     resolution:
       integrity: sha1-MKWGTrPrsKZvLr5tcnrwagnYbgo=
       tarball: 'http://registry.npm.taobao.org/ms/download/ms-2.1.1.tgz'
@@ -585,7 +592,7 @@ packages:
       any-promise: 1.3.0
       object-assign: 4.1.1
       thenify-all: 1.6.0
-    dev: true
+    dev: false
     resolution:
       integrity: sha1-lQCAV6Vsr63CvGPd5/n/aVWUjjI=
       tarball: 'http://registry.npm.taobao.org/mz/download/mz-2.7.0.tgz'
@@ -597,7 +604,7 @@ packages:
       integrity: sha1-KzJxhOiZIQEXeyhWP7XnECrNDKk=
       tarball: 'http://registry.npm.taobao.org/negotiator/download/negotiator-0.6.1.tgz'
   /object-assign/4.1.1:
-    dev: true
+    dev: false
     engines:
       node: '>=0.10.0'
     resolution:
@@ -630,7 +637,7 @@ packages:
       integrity: sha1-GWfZ5m2lcrXAI8eH2xEqOHqxZvo=
       tarball: 'http://registry.npm.taobao.org/passthrough-counter/download/passthrough-counter-1.0.0.tgz'
   /path-is-absolute/1.0.1:
-    dev: true
+    dev: false
     engines:
       node: '>=0.10.0'
     resolution:
@@ -666,7 +673,7 @@ packages:
     dependencies:
       http-errors: 1.6.3
       path-is-absolute: 1.0.1
-    dev: true
+    dev: false
     engines:
       node: '>= 0.8'
     resolution:
@@ -726,7 +733,7 @@ packages:
   /thenify-all/1.6.0:
     dependencies:
       thenify: 3.3.0
-    dev: true
+    dev: false
     engines:
       node: '>=0.8'
     resolution:
@@ -735,12 +742,11 @@ packages:
   /thenify/3.3.0:
     dependencies:
       any-promise: 1.3.0
-    dev: true
+    dev: false
     resolution:
       integrity: sha1-5p44obq+lpsBCCB5eLn2K4hgSDk=
       tarball: 'http://registry.npm.taobao.org/thenify/download/thenify-3.3.0.tgz'
   /toidentifier/1.0.0:
-    dev: true
     engines:
       node: '>=0.6'
     resolution:
@@ -819,10 +825,11 @@ registry: 'https://registry.npm.taobao.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
 specifiers:
+  '@tdqs/koa-static': ^0.0.2
   '@types/koa': ^2.0.47
   '@types/koa-compose': ^3.2.2
   '@types/koa-send': ^4.1.1
-  '@types/node': ^10.12.15
+  '@types/node': ^10.12.17
   ajv: ^6.6.2
   koa: ^2.6.2
   koa-body: ^4.0.4

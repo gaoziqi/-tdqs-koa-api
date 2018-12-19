@@ -2,16 +2,16 @@
  * @Author: gzq
  * @Date: 2018-12-17 09:29:18
  * @Last Modified by: gzq
- * @Last Modified time: 2018-12-17 16:20:05
+ * @Last Modified time: 2018-12-19 14:25:34
  */
 
+import { koaStatic } from '@tdqs/koa-static';
 import * as Ajv from 'ajv';
 import * as koaBody from 'koa-body';
 import * as compose from 'koa-compose';
 import * as path from 'path';
 import { apiUrls, IApiContext } from './api';
 import { getDocs } from './docs';
-import { staticUrl } from './static';
 
 class ValidationError extends Error {
   constructor(
@@ -44,6 +44,9 @@ export function koaApi(opt: IKoaApiOptions, ...groups: any[]) {
     opt,
   );
   const mwKoaBody = koaBody(option.koaBody);
+  const mwKoaStatic = koaStatic(option.staticPath, {
+    prefixUrl: option.docsUrl,
+  });
   const middleware = async (ctx: IApiContext, next: () => Promise<void>) => {
     const urls = apiUrls[ctx.method][ctx.path];
     /** 参数解析 */
@@ -68,10 +71,11 @@ export function koaApi(opt: IKoaApiOptions, ...groups: any[]) {
   };
   return async (ctx: IApiContext, next: () => Promise<void>) => {
     if (ctx.path.startsWith(option.docsUrl)) {
-      if (ctx.method === 'GET') {
-        await staticUrl(ctx, option.docsUrl, option.staticPath);
-      } else {
+      if (ctx.method === 'POST') {
         ctx.body = getDocs();
+        await next();
+      } else {
+        return compose([mwKoaStatic])(ctx, next);
       }
     } else if (ctx.path in apiUrls[ctx.method]) {
       const urls = apiUrls[ctx.method][ctx.path];

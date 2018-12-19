@@ -20,5 +20,11 @@ app.onerror = e => {
 
 app
   .use(logger())
-  .use(koaApi({ koaBody: { multipart: true } }, Test, Schema))
+  .use(
+    koaApi(
+      { koaBody: { multipart: true }, docsUrl: '/document' },
+      Test,
+      Schema,
+    ),
+  )
   .listen(8080);
