@@ -1,8 +1,8 @@
 {
   "name": "@tdqs/koa-api",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "基于koa的api中间件",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "dev": "nodemon ./tests/server",
     "build": "tsc --build tsconfig.json",
