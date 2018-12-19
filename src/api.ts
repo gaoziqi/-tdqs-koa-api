@@ -2,11 +2,42 @@
  * @Author: gzq
  * @Date: 2018-12-14 16:27:05
  * @Last Modified by: gzq
- * @Last Modified time: 2018-12-17 15:11:50
+ * @Last Modified time: 2018-12-19 15:42:20
  */
 
 import { Context, Middleware } from 'koa';
-import { ISchema } from './jsonschema';
+
+type PrimitiveType = number | boolean | string | null;
+
+interface ISchema {
+  $ref?: string;
+  $schema?: string;
+  $id?: string;
+  description?: string;
+  allOf?: ISchema[];
+  oneOf?: ISchema[];
+  anyOf?: ISchema[];
+  title?: string;
+  type?: string | string[];
+  definitions?: { [key: string]: any };
+  format?: string;
+  items?: ISchema | ISchema[];
+  minItems?: number;
+  additionalItems?:
+    | {
+        anyOf: ISchema[];
+      }
+    | ISchema;
+  enum?: PrimitiveType[] | ISchema[];
+  default?: PrimitiveType | object;
+  additionalProperties?: ISchema | boolean;
+  required?: string[];
+  propertyOrder?: string[];
+  properties?: { [key: string]: any };
+  defaultProperties?: string[];
+  patternProperties?: { [pattern: string]: ISchema };
+  typeof?: 'function';
+}
 
 export interface IApiContext extends Context {
   /** 参数 */

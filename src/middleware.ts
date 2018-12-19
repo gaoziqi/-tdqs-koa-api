@@ -2,7 +2,7 @@
  * @Author: gzq
  * @Date: 2018-12-17 09:29:18
  * @Last Modified by: gzq
- * @Last Modified time: 2018-12-19 14:25:34
+ * @Last Modified time: 2018-12-19 15:53:57
  */
 
 import { koaStatic } from '@tdqs/koa-static';
@@ -10,8 +10,18 @@ import * as Ajv from 'ajv';
 import * as koaBody from 'koa-body';
 import * as compose from 'koa-compose';
 import * as path from 'path';
-import { apiUrls, IApiContext } from './api';
-import { getDocs } from './docs';
+import { apiGroups, apiUrls, IApiContext, IApiOption } from './api';
+
+function getDocs() {
+  const docs: Array<{
+    name: string;
+    children: Array<{ name: string; value: IApiOption }>;
+  }> = [];
+  Object.keys(apiGroups).map(key => {
+    docs.push({ name: key, children: apiGroups[key] });
+  });
+  return docs;
+}
 
 class ValidationError extends Error {
   constructor(
@@ -75,7 +85,7 @@ export function koaApi(opt: IKoaApiOptions, ...groups: any[]) {
         ctx.body = getDocs();
         await next();
       } else {
-        return compose([mwKoaStatic])(ctx, next);
+        return await mwKoaStatic(ctx, next);
       }
     } else if (ctx.path in apiUrls[ctx.method]) {
       const urls = apiUrls[ctx.method][ctx.path];
