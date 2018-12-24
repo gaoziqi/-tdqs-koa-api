@@ -5,7 +5,8 @@
  * @Last Modified time: 2018-12-19 10:32:00
  */
 
-import { api, cls, IApiContext, koaSend } from '../src/index';
+import { Context } from 'koa';
+import { api, cls, koaSend } from '../src/index';
 
 @cls({
   name: '测试schema',
@@ -36,7 +37,7 @@ export class Schema {
       type: 'object',
     },
   })
-  public static hello(ctx: IApiContext) {
+  public static hello(ctx: Context) {
     return `hello world ${JSON.stringify(ctx.data)}`;
   }
 

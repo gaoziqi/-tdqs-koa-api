@@ -7,6 +7,14 @@
 
 import { Context, Middleware } from 'koa';
 
+declare module 'koa' {
+  // tslint:disable-next-line:interface-name
+  interface Context {
+    /** 参数 */
+    data: object;
+  }
+}
+
 type PrimitiveType = number | boolean | string | null;
 
 interface ISchema {
@@ -37,11 +45,6 @@ interface ISchema {
   defaultProperties?: string[];
   patternProperties?: { [pattern: string]: ISchema };
   typeof?: 'function';
-}
-
-export interface IApiContext extends Context {
-  /** 参数 */
-  data?: object;
 }
 
 interface IApiParam {

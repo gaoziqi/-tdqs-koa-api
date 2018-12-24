@@ -7,10 +7,11 @@
 
 import { koaStatic } from '@tdqs/koa-static';
 import * as Ajv from 'ajv';
+import { Middleware } from 'koa';
 import * as koaBody from 'koa-body';
 import * as compose from 'koa-compose';
 import * as path from 'path';
-import { apiGroups, apiUrls, IApiContext, IApiOption } from './api';
+import { apiGroups, apiUrls, IApiOption } from './api';
 
 function getDocs() {
   const docs: Array<{
@@ -47,7 +48,7 @@ const ajv = new Ajv();
  * @param opt 配置
  * @param groups 添加需要编译的IApiGroup
  */
-export function koaApi(opt: IKoaApiOptions, ...groups: any[]) {
+export function koaApi(opt: IKoaApiOptions, ...groups: any[]): Middleware {
   /** IApiOption默认值 */
   const option: IKoaApiOptions = Object.assign(
     { docsUrl: '/docs', staticPath: path.resolve(__dirname, '../static') },
@@ -57,7 +58,7 @@ export function koaApi(opt: IKoaApiOptions, ...groups: any[]) {
   const mwKoaStatic = koaStatic(option.staticPath, {
     prefixUrl: option.docsUrl,
   });
-  const middleware = async (ctx: IApiContext, next: () => Promise<void>) => {
+  const middleware: Middleware = async (ctx, next) => {
     const urls = apiUrls[ctx.method][ctx.path];
     /** 参数解析 */
     switch (ctx.method) {
@@ -79,7 +80,7 @@ export function koaApi(opt: IKoaApiOptions, ...groups: any[]) {
     }
     await next();
   };
-  return async (ctx: IApiContext, next: () => Promise<void>) => {
+  return async (ctx, next) => {
     if (ctx.path.startsWith(option.docsUrl)) {
       if (ctx.method === 'POST') {
         ctx.body = getDocs();
